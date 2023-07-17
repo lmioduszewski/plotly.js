@@ -14,7 +14,7 @@ module.exports = function click(gd, evt, subplot) {
         hover(gd, evt, subplot, true);
     }
 
-    function emitClick() { gd.emit('plotly_click', {points: gd._hoverdata, event: evt}); }
+    function emitClick(data) { gd.emit('plotly_click', {points: data, event: evt}); }
 
     var clickmode = gd._fullLayout.clickmode;
     var data;
