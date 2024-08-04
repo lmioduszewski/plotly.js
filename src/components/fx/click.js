@@ -26,6 +26,13 @@ module.exports = function click(gd, evt, subplot) {
                 var lat = gd._fullLayout.geo._subplot.xaxis.p2c();
                 var lon = gd._fullLayout.geo._subplot.yaxis.p2c();
                 data = [{lat: lat, lon: lon}];
+            } if(gd._fullLayout.mapbox) {
+                var mapboxInstance = gd._fullLayout.mapbox._subplot.map;
+                var rect = evt.target.getBoundingClientRect();
+                var xx = evt.clientX - rect.left;
+                var yy = evt.clientY - rect.top;
+                var lngLat = mapboxInstance.unproject([xx, yy]);
+                data = [{lon: lngLat.lng, lat: lngLat.lat}];
             } else {
                 var bb = evt.target.getBoundingClientRect();
                 var x = gd._fullLayout.xaxis.p2d(evt.clientX - bb.left);
